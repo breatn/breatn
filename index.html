@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BitOps: Data Center Tycoon</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <header>
+            <h1>BitOps: Data Center Tycoon <span id="game-version">v0.1</span></h1>
+            <div id="session-info">
+                Session: <span id="session-timer">00:00:00</span>
+                <-- Autosave: <span id="autosave-status">ON</span> -->
+            </div>
+        </header>
+
+        <div id="main-layout">
+            <aside id="system-status-panel">
+                <h2>SYSTEM STATUS</h2>
+                <section id="financial-status">
+                    <h3>FINANCIAL</h3>
+                    <p>Cash: $<span id="cash">1000</span></p>
+                    <p>Income/min: $<span id="income-min">0</span></p>
+                    <p>Expenses/min: $<span id="expenses-min">0</span></p>
+                </section>
+                <section id="infrastructure-status">
+                    <h3>INFRASTRUCTURE</h3>
+                    <p>Servers: <span id="servers-count">1</span>/<span id="max-servers">8</span></p>
+                    <p>Power: <span id="power-usage">150</span>W / <span id="power-capacity">1000</span>W</p>
+                    <p>Heat Output: <span id="heat-output">20</span>H</p>
+                    <p>Cooling Capacity: <span id="cooling-capacity">50</span>H</p>
+                    <p>Avg. Temp: <span id="avg-temp">17</span>°C</p>
+                </section>
+                <section id="client-services-status">
+                    <h3>CLIENT SERVICES</h3>
+                    <p>Active Contracts: <span id="active-contracts-count">0</span></p>
+                    <p>Satisfaction: <span id="client-satisfaction">100</span>%</p>
+                    <p>Total Compute: <span id="total-compute">50</span> CU/s</p>
+                </section>
+                <section id="research-status" class="placeholder-section">
+                    <h3>RESEARCH</h3>
+                    <p>No active research.</p>
+                </section>
+                <section id="achievements-status" class="placeholder-section">
+                    <h3>ACHIEVEMENTS</h3>
+                    <p>No achievements yet.</p>
+                </section>
+            </aside>
+
+            <main id="main-content">
+                <nav id="tabs">
+                    <button class="tab-button active" data-tab="overview">OVERVIEW</button>
+                    <button class="tab-button" data-tab="shop">SHOP</button>
+                    <button class="tab-button" data-tab="contracts">CONTRACTS</button>
+                    <button class="tab-button" data-tab="software">SOFTWARE</button>
+                    <button class="tab-button" data-tab="research_main">RESEARCH</button>
+                    <button class="tab-button" data-tab="monitoring">MONITORING</button>
+                </nav>
+
+                <div id="tab-content">
+                    <div id="overview-tab" class="tab-pane active">
+                        <section id="data-center-overview">
+                            <h3>DATA CENTER OVERVIEW</h3>
+                            <h4>SERVER RACK STATUS (<span id="overview-servers-count">1</span>/<span id="overview-max-servers">8</span>) <button id="expand-building-overview" class="action-button">Expand Building ($<span id="expand-building-cost">5000</span>)</button></h4>
+                            <div id="server-rack">
+                                <!-- Server slots will be generated here -->
+                            </div>
+                            <h4>QUICK ACTIONS</h4>
+                            <div id="quick-actions">
+                                <button id="buy-server-quick" class="action-button success">BUY SERVER ($<span id="buy-server-cost">500</span>)</button>
+                                <button id="upgrade-power-quick" class="action-button warning">UPGRADE POWER ($<span id="upgrade-power-cost">750</span>)</button>
+                                <button id="upgrade-cooling-quick" class="action-button info">UPGRADE COOLING ($<span id="upgrade-cooling-cost">200</span>)</button>
+                            </div>
+                        </section>
+                        <section id="active-contracts-overview">
+                            <h3>ACTIVE CONTRACTS</h3>
+                            <div id="active-contracts-list-overview">
+                                <p>No active contracts. Visit the CONTRACTS tab to accept new work.</p>
+                            </div>
+                        </section>
+                        <section id="system-event-log-container">
+                            <h3>SYSTEM EVENT LOG</h3>
+                            <div id="system-event-log">
+                                <!-- Log messages will appear here -->
+                            </div>
+                        </section>
+                    </div>
+
+                    <div id="shop-tab" class="tab-pane">
+                        <h3>SHOP</h3>
+                        <div class="shop-category">
+                            <h4>SERVERS</h4>
+                            <div class="shop-item">
+                                <p>Basic Server Mk1: +50 CU, 150W, 20H</p>
+                                <button id="buy-server-shop" class="action-button success">BUY ($<span id="buy-server-cost-shop">500</span>)</button>
+                            </div>
+                             <!-- More server types later -->
+                        </div>
+                        <div class="shop-category">
+                            <h4>INFRASTRUCTURE</h4>
+                             <div class="shop-item">
+                                <p>Upgrade Power Supply: +<span id="power-upgrade-amount">500</span>W Capacity</p>
+                                <button id="upgrade-power-shop" class="action-button warning">UPGRADE ($<span id="upgrade-power-cost-shop">750</span>)</button>
+                            </div>
+                            <div class="shop-item">
+                                <p>Upgrade Cooling System: +<span id="cooling-upgrade-amount">20</span>H Dissipation</p>
+                                <button id="upgrade-cooling-shop" class="action-button info">UPGRADE ($<span id="upgrade-cooling-cost-shop">200</span>)</button>
+                            </div>
+                            <div class="shop-item">
+                                <p>Expand Building: +<span id="rack-expansion-amount">8</span> Server Slots</p>
+                                <button id="expand-building-shop" class="action-button">EXPAND ($<span id="expand-building-cost-shop">5000</span>)</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="contracts-tab" class="tab-pane">
+                        <h3>AVAILABLE CONTRACTS</h3>
+                        <div id="available-contracts-list">
+                            <!-- Available contracts will be generated here -->
+                        </div>
+                        <h3>YOUR ACTIVE CONTRACTS</h3>
+                        <div id="active-contracts-list-detailed">
+                             <p>No active contracts.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Placeholder for Software tab -->
+                    <div id="software-tab" class="tab-pane">
+                        <h3>SERVER SOFTWARE MANAGEMENT</h3>
+                        <p>Optimize server performance and security by installing and managing Operating Systems, Anti-Virus Suites, and specialized workload software.</p>
+                        <p><em>(Feature coming soon! This tab will allow per-server software installations and upgrades, affecting performance, security, and power consumption.)</em></p>
+                        <div id="server-software-list">
+                            <!-- Servers for software management will be listed here -->
+                        </div>
+                    </div>
+                    
+                    <div id="research_main-tab" class="tab-pane">
+                        <h3>RESEARCH & DEVELOPMENT</h3>
+                        <p>Invest in R&D to unlock new technologies, improve efficiency, and gain a competitive edge.</p>
+                        <p><em>(Feature coming soon! This tab will feature a research tree for new server types, advanced cooling, power solutions, and automation.)</em></p>
+                        <div id="research-tree-container" class="placeholder-section">
+                             <p>Research options will be displayed here.</p>
+                        </div>
+                    </div>
+                    
+                    <div id="monitoring-tab" class="tab-pane">
+                        <h3>ADVANCED MONITORING</h3>
+                        <p>Keep a close eye on your data center's vital signs with detailed graphs and real-time analytics.</p>
+                        <p><em>(Feature coming soon! This tab will provide charts for power usage, heat maps, network traffic, and client satisfaction over time.)</em></p>
+                        <div id="monitoring-charts-container" class="placeholder-section">
+                            <p>Detailed charts and metrics will appear here.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+        </div>
+    </div>
+    <script type="module" src="main.js"></script>
+</body>
+</html>
